@@ -1,9 +1,9 @@
 name: Hello World Workflow
 
 on:
-  pull_request:
-    branches:
-      - main 
+  fork:
+    types:
+      - created
 
 jobs:
   hello-world:
