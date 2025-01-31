@@ -11,6 +11,5 @@ jobs:
 
     steps:
       - name: Print Repository-Level Variables
-        run: |
-          echo "REPO_variable ${{ REPO_VARIABLE }}"
+        run: echo "REPO_variable ${{ REPO_VARIABLE }}"
       
