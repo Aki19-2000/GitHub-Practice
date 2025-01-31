@@ -3,15 +3,13 @@ name: Inputs Context Demo
 on:
   workflow_dispatch:
     inputs:
-      debug-mode:
-        description: "Enable Debug Mode"
+      debug:
         default: "false"
         type: boolean
 
 jobs:
   show-inputs:
     runs-on: ubuntu-latest
-
     steps:
       - name: Print Inputs
-        run: echo "Debug Mode: ${{ inputs.debug-mode }}"
+        run: echo "Debug Mode: ${{ inputs.debug }}"
