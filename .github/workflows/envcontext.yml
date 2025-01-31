@@ -1,0 +1,29 @@
+name: Environment Variables
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  environment-demo:
+    runs-on: ubuntu-latest
+    env:
+      GLOBAL_VAR: "This is a global variable"
+
+    steps:
+      - name: Define Step-Level Environment Variable
+        env:
+          STEP_VAR: "This is a step-level variable"
+        run: |
+          echo "Using env context:"
+          echo "GLOBAL_VAR: ${{ env.GLOBAL_VAR }}"
+          echo "STEP_VAR: ${{ env.STEP_VAR }}"
+      
+      - name: Export Environment Variable in a Step
+        run: |
+          echo "DYNAMIC_VAR=This is a dynamically set variable" >> $GITHUB_ENV
+
+      - name: Access the Exported Variable
+        run: |
+          echo "DYNAMIC_VAR: ${{ env.DYNAMIC_VAR }}"
