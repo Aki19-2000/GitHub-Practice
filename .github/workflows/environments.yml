@@ -18,8 +18,8 @@ jobs:
           echo "Displaying environment variable for target environment: ${{ inputs.Target_environment }}"
           echo " production variable ${{ vars.PROD_VARIABLE }} "
           echo " production secret ${{ secrets.PROD_SECRET }} "
-          echo " staging variable ${{ vars.STAGE_VARIABLE }} "
-          echo " staging secret ${{ secrets.STAGE_SECRET }} "
+          echo " Environment variable ${{ vars.STAGE_VARIABLE }} "
+          echo " Environment secret ${{ secrets.STAGE_SECRET }} "
           
           
           
