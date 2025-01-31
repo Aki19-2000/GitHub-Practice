@@ -13,6 +13,7 @@ jobs:
         id: step1
         run: |
           echo "result=true" >> $GITHUB_ENV
+          echo "::set-output name=result::false
           
   job2:
     needs: job1 
