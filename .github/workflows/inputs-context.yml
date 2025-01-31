@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       debug:
+        required: false
         default: "false"
         type: boolean
 
@@ -12,4 +13,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print Inputs
-        run: echo "Debug Mode: ${{ inputs.debug }}
+        run: echo "Debug Mode: ${{ inputs.debug }}"
