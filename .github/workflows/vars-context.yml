@@ -1,0 +1,16 @@
+name: Repository Variables Demo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  show-vars:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print Repository-Level Variables
+        run: |
+          echo "REPO_variable ${{ REPO_VARIABLE }}"
+      
