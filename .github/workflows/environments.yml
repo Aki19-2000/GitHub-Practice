@@ -4,23 +4,18 @@ on:
   workflow_dispatch:
     inputs:
       Target_environment:
-        description: 'Select the environment'
-        required: true
         type: environment
         default: prod
 
 jobs:
   echo_env:
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.Target_environment }} 
+    environment: ${{ inputs.Target_environment }} 
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Display Environment Variable
         run: |
-          echo "Displaying environment variable for target environment: ${{ github.event.inputs.Target_environment }}"
+          echo "Displaying environment variable for target environment: ${{ inputs.Target_environment }}"
           echo " production variable ${{ vars.PROD_VARIABLE }} "
           echo " production secret ${{ secrets.PROD_SECRET }} "
           echo " staging variable ${{ vars.STAGE_VARIABLE }} "
