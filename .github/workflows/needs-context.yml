@@ -1,0 +1,29 @@
+name: Needs Context Example
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.step1.outputs.result }}
+    steps:
+      - name: Generate result in Job 1
+        id: step1
+        run: |
+          echo "result=true" >> $GITHUB_ENV
+          
+  job2:
+    needs: job1 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Job 1 Result and Proceed
+        run: |
+          echo "Job 1 result: ${{ needs.job1.outputs.result }}"
+          if [[ "${{ needs.job1.result }}" == "success" ]]; then
+            echo "Job 1 succeeded. Proceeding with Job 2."
+          else
+            echo "Job 1 failed. Stopping Job 2."
+            exit 1
+          fi
