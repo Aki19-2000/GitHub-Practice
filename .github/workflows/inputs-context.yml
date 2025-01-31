@@ -12,4 +12,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print Inputs
-        run: echo "Debug Mode: ${{ inputs.debug }}"
+        run: echo "print something"
