@@ -13,10 +13,10 @@ jobs:
         id: step1
         run: |
           echo "result=true" >> $GITHUB_ENV
-          echo "::set-output name=result::true
-          
+          echo "::set-output name=result::true"
+
   job2:
-    needs: job1 
+    needs: job1  # job2 depends on job1
     runs-on: ubuntu-latest
     steps:
       - name: Check Job 1 Result and Proceed
