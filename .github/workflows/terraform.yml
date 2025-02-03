@@ -36,7 +36,7 @@ jobs:
           terraform apply -auto-approve
 
       - name: Upload Terraform State and Logs as Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.6.0
         with:
           name: terraform-artifacts
           path: |
