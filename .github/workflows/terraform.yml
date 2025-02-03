@@ -15,6 +15,11 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y unzip
 
+      - name: Install Node.js
+        run: |
+          sudo apt-get install -y nodejs
+          sudo apt-get install -y npm 
+
       - name: HashiCorp - Setup Terraform
         uses: hashicorp/setup-terraform@v2.0.3
         with:
