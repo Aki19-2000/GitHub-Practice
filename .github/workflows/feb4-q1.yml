@@ -3,7 +3,7 @@ name: Q1 Deployment Workflow
 on:
   push:
     branches:
-      - main  
+      - main 
 
 jobs:
   build:
@@ -13,19 +13,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js 
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'  
 
       - name: Install dependencies
-        run: npm install  
+        run: |
+          # Check if package.json is at the root or in a subfolder
+          if [ -f "package.json" ]; then
+            npm install
+          else
+            echo "package.json not found at root directory. Please check the path."
+            exit 1
+          fi
 
       - name: Run tests
-        run: npm test  
+        run: npm test  # Replace with your actual test command (e.g., `npm test`, `pytest`, etc.)
 
   deploy:
-    needs: build  
+    needs: build  # This ensures deploy will only run if the build job is successful
     runs-on: ubuntu-latest
 
     steps:
@@ -35,6 +42,7 @@ jobs:
       - name: Deploy application
         run: |
           echo "Deploying application..."  
-          
+          # Example deploy script:
+          # scp -r ./build user@server:/path/to/deploy
 
-    if: success()  
+    if: success()  # This ensures the deploy job only runs if the previous build job succeeds
