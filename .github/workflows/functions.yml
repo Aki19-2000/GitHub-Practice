@@ -43,14 +43,14 @@ jobs:
 
       - name: Format a message with GitHub context
         run: |
-          formatted_message="${{ format('Hello, {}! You pushed to the {} repository.', github.actor, github.repository) }}"
+          formatted_message="${{ format('Hello, {0}! You pushed to the {1} repository.', github.actor, github.repository) }}"
           echo "Formatted message: $formatted_message"
 
       - name: Join GitHub context values (actor, event name)
         run: |
-          joined_context="${{ format('Actor: {}', github.actor) }}, ${{
-            format('Event: {}', github.event_name) }}, ${{
-            format('Repository: {}', github.repository) }}"
+          joined_context="${{ format('Actor: {0}', github.actor) }}, ${{
+            format('Event: {0}', github.event_name) }}, ${{
+            format('Repository: {0}', github.repository) }}"
           echo "Joined GitHub context: $joined_context"
 
       - name: Parse JSON string and access GitHub context values
