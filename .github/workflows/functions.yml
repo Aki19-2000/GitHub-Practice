@@ -48,7 +48,9 @@ jobs:
 
       - name: Join GitHub context values (actor, event name)
         run: |
-          joined_context="${{ join(', ', format('Actor: {}', github.actor), format('Event: {}', github.event_name), format('Repository: {}', github.repository)) }}"
+          joined_context="${{ format('Actor: {}', github.actor) }}, ${{
+            format('Event: {}', github.event_name) }}, ${{
+            format('Repository: {}', github.repository) }}"
           echo "Joined GitHub context: $joined_context"
 
       - name: Parse JSON string and access GitHub context values
