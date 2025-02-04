@@ -1,36 +1,48 @@
-name: Object Filter with Array Manipulation
+name: Fruits Object Workflow
 
 on:
   push:
     branches:
-      - main
+      - main  # Triggers when changes are pushed to the main branch
+  pull_request:
+    branches:
+      - main  # Triggers when a PR is created/updated on the main branch
 
 jobs:
-  object-filter-demo:
-    runs-on: ubuntu-latest
-
+  run-filtering-script:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu environment
+    
     steps:
+      # Step 1: Checkout the code
       - name: Checkout Repository
         uses: actions/checkout@v2
+        
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'  # Specifies the version of Node.js you want to use
 
-      - name: Define Objects
-        id: define_objects
+      # Step 3: Install dependencies (if any)
+      - name: Install Dependencies
         run: |
-          objects='[
-            {"name": "Object1", "status": "active"},
-            {"name": "Object2", "status": "inactive"},
-            {"name": "Object3", "status": "active"}
-          ]'
-          echo "::set-output name=objects::$objects"
+          npm install  # Runs npm install in case you have a package.json
 
-      - name: Filter Active Objects
-        id: filter_active
+      # Step 4: Create and run the filtering script
+      - name: Run Fruits Filtering Script
         run: |
-          active_objects="${{ steps.define_objects.outputs.objects }}"
-          # Use fromJson and filter the active objects based on status
-          filtered_objects=$(echo $active_objects | jq '[.[] | select(.status == "active")]')
-          echo "::set-output name=active_objects::$filtered_objects"
+          echo 'const fruits = [
+            { "name": "apple", "quantity": 1 },
+            { "name": "orange", "quantity": 2 },
+            { "name": "pear", "quantity": 1 }
+          ];' > filterFruits.js
+          
+          echo 'let selectedFruits = fruits.filter(fruit => fruit.quantity === 1);' >> filterFruits.js
+          echo 'console.log("Selected Fruits: ", selectedFruits);' >> filterFruits.js
+          
+          node filterFruits.js  # Run the script with Node.js
 
-      - name: Display Filtered Active Objects
+      # Step 5: Verify the output (optional)
+      - name: Verify Filtering Output
         run: |
-          echo "Filtered Active Objects: ${{ steps.filter_active.outputs.active_objects }}"
+          node filterFruits.js
