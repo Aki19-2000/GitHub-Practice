@@ -1,0 +1,60 @@
+name: Literal Expressions Example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  literal-expressions-demo:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      # Step using boolean literal
+      - name: Boolean Literal Example
+        run: |
+          if [[ ${{ true }} == true ]]; then
+            echo "Boolean literal is true"
+          else
+            echo "Boolean literal is false"
+          fi
+
+      # Step using null literal (checking if a value is null)
+      - name: Null Literal Example
+        run: |
+          if [[ "${{ null }}" == "" ]]; then
+            echo "Null literal is treated as empty"
+          else
+            echo "Null literal has a value"
+          fi
+
+      # Step using number literal
+      - name: Number Literal Example
+        run: |
+          number=${{ 42 }}
+          echo "The number literal is: $number"
+          if [[ $number -gt 20 ]]; then
+            echo "Number literal is greater than 20"
+          fi
+
+      # Step using string literal
+      - name: String Literal Example
+        run: |
+          string_value="${{ 'Hello, GitHub Actions!' }}"
+          echo "String literal is: $string_value"
+          if [[ "$string_value" == "Hello, GitHub Actions!" ]]; then
+            echo "String literal matches the expected value"
+          fi
+
+      # Conditional step that runs based on the boolean value
+      - name: Conditional Step Based on Boolean
+        if: ${{ true }}
+        run: echo "This step runs because the boolean literal is true"
+
+      # Conditional step that does not run based on the boolean value
+      - name: Conditional Step Based on False Boolean
+        if: ${{ false }}
+        run: echo "This step will not run because the boolean literal is false"
