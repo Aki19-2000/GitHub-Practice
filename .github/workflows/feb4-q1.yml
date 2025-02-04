@@ -1,4 +1,4 @@
-name: Q1 Deployment Workflow
+name: Deployment Workflow
 
 on:
   push:
@@ -18,36 +18,11 @@ jobs:
         with:
           node-version: '16'  # Specify the Node.js version (adjust as necessary)
 
-      - name: Check if package.json exists at root or subfolder
-        run: |
-          # Check if package.json is at the root directory
-          if [ -f "package.json" ]; then
-            echo "Found package.json at root directory."
-            npm install
-          elif [ -f "frontend/package.json" ]; then
-            echo "Found package.json in the 'frontend' subfolder."
-            cd frontend
-            npm install
-          elif [ -f "backend/package.json" ]; then
-            echo "Found package.json in the 'backend' subfolder."
-            cd backend
-            npm install
-          else
-            echo "package.json not found at the expected locations (root, frontend, or backend)."
-            exit 1
-          fi
+      - name: Install dependencies
+        run: npm install  # This will install dependencies based on the package.json file
 
       - name: Run tests
-        run: |
-          if [ -f "package.json" ]; then
-            npm test  # Replace with your actual test command
-          elif [ -f "frontend/package.json" ]; then
-            cd frontend
-            npm test  # Replace with your actual test command
-          elif [ -f "backend/package.json" ]; then
-            cd backend
-            npm test  # Replace with your actual test command
-          fi
+        run: npm test  # Adjust with your test command, or create a simple test script
 
   deploy:
     needs: build  # This ensures deploy will only run if the build job is successful
