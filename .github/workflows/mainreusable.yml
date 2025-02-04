@@ -11,4 +11,4 @@ jobs:
     - name: Trigger the First Workflow
       uses: github/workflows/Reusable.yml 
       with:
-        message: "This is the message displayed by the first workflow!"  # Message to pass
+        message: "This is the message displayed by the first workflow!"
