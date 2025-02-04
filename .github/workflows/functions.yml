@@ -1,0 +1,62 @@
+name: Functions Example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  functions-demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
+      - name: Convert GitHub Context to JSON
+        run: |
+          context_json="${{ toJson(github) }}"
+          echo "GitHub context as JSON: $context_json"
+      - name: Check if repository name contains 'GitHub'
+        run: |
+          repo_name="${{ github.repository }}"
+          if [[ ${{ contains(repo_name, 'GitHub') }} == 'true' ]]; then
+            echo "The repository name contains 'GitHub'"
+          else
+            echo "The repository name does not contain 'GitHub'"
+          fi
+      - name: Check if repository name starts with 'Aki19'
+        run: |
+          repo_name="${{ github.repository }}"
+          if [[ ${{ startsWith(repo_name, 'Aki19') }} == 'true' ]]; then
+            echo "The repository name starts with 'Aki19'"
+          else
+            echo "The repository name does not start with 'Aki19'"
+          fi
+      - name: Check if repository name ends with 'GitHub-Practice'
+        run: |
+          repo_name="${{ github.repository }}"
+          if [[ ${{ endsWith(repo_name, 'GitHub-Practice') }} == 'true' ]]; then
+            echo "The repository name ends with 'GitHub-Practice'"
+          else
+            echo "The repository name does not end with 'GitHub-Practice'"
+          fi
+      - name: Format a message with GitHub context
+        run: |
+          formatted_message="${{ format('Hello, {}! You pushed to the {} repository.', github.actor, github.repository) }}"
+          echo "Formatted message: $formatted_message"
+      - name: Join GitHub context values (actor, event name)
+        run: |
+          context_values=("Actor: ${{ github.actor }}" "Event: ${{ github.event_name }}" "Repository: ${{ github.repository }}")
+          joined_context="${{ join(', ', context_values) }}"
+          echo "Joined GitHub context: $joined_context"
+      - name: Parse JSON string and access GitHub context values
+        run: |
+          json_string="${{ toJson(github) }}"
+          parsed_context="${{ fromJson(json_string) }}"
+          echo "Repository name (from parsed JSON): ${{ parsed_context.repository }}"
+          echo "Actor name (from parsed JSON): ${{ parsed_context.actor }}"
+      - name: Hash the README file
+        run: |
+          file_hash="${{ hashFiles('README.md') }}"
+          echo "Hash of README.md: $file_hash"
