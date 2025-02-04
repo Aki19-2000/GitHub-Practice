@@ -1,34 +1,30 @@
-name: Fruits Object Workflow
+name: Fruits Filtering Workflow
 
 on:
   push:
     branches:
-      - main  # Triggers when changes are pushed to the main branch
+      - main
   pull_request:
     branches:
-      - main  # Triggers when a PR is created/updated on the main branch
+      - main
 
 jobs:
   run-filtering-script:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu environment
-    
+    runs-on: ubuntu-latest
+
     steps:
-      # Step 1: Checkout the code
       - name: Checkout Repository
         uses: actions/checkout@v2
-        
-      # Step 2: Set up Node.js
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # Specifies the version of Node.js you want to use
+          node-version: '16'
 
-      # Step 3: Install dependencies (if any)
-      - name: Install Dependencies
-        run: |
-          npm install  # Runs npm install in case you have a package.json
+      # Remove this step if you don't have any dependencies
+      # - name: Install Dependencies
+      #   run: npm install  
 
-      # Step 4: Create and run the filtering script
       - name: Run Fruits Filtering Script
         run: |
           echo 'const fruits = [
@@ -40,9 +36,8 @@ jobs:
           echo 'let selectedFruits = fruits.filter(fruit => fruit.quantity === 1);' >> filterFruits.js
           echo 'console.log("Selected Fruits: ", selectedFruits);' >> filterFruits.js
           
-          node filterFruits.js  # Run the script with Node.js
+          node filterFruits.js
 
-      # Step 5: Verify the output (optional)
       - name: Verify Filtering Output
         run: |
           node filterFruits.js
