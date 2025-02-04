@@ -1,0 +1,12 @@
+name: First Workflow (Triggering Workflow)
+
+on:
+  workflow_dispatch:  # This is a manual trigger
+
+jobs:
+  trigger_called_workflow:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Trigger the Second Workflow
+      uses: ./.github/workflows/called.yml  # Path to the second workflow file
