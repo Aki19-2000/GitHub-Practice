@@ -1,0 +1,14 @@
+name: Second Workflow
+
+on:
+  workflow_dispatch:  # This allows the workflow to be triggered manually
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Trigger the First Workflow
+      uses: github/workflows/first-workflow.yml  # Path to the first workflow
+      with:
+        message: "This is the message displayed by the first workflow!"  # Message to pass
