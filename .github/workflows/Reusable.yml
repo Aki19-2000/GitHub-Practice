@@ -1,0 +1,17 @@
+name: First Workflow
+
+on:
+  workflow_call:  # This allows the workflow to be called by another workflow
+    inputs:
+      message:
+        description: 'The message to be displayed'
+        required: true
+        type: string
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Display message
+      run: echo "${{ inputs.message }}"  # Display the message passed as input
