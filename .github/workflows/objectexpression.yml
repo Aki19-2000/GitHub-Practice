@@ -1,4 +1,4 @@
-name: Object Filter with * Operator
+name: Object Filter with Array Manipulation
 
 on:
   push:
@@ -23,9 +23,14 @@ jobs:
           ]'
           echo "::set-output name=objects::$objects"
 
-      - name: Filter Objects with * Operator
+      - name: Filter Active Objects
+        id: filter_active
         run: |
-          # Using the * operator to loop through the objects array and filter by status
-          active_objects="${{ fromJson(steps.define_objects.outputs.objects) }}"
-          active_items="${{ active_objects[*] }}"
-          echo "Filtered Objects: $active_items"
+          active_objects="${{ steps.define_objects.outputs.objects }}"
+          # Use fromJson and filter the active objects based on status
+          filtered_objects=$(echo $active_objects | jq '[.[] | select(.status == "active")]')
+          echo "::set-output name=active_objects::$filtered_objects"
+
+      - name: Display Filtered Active Objects
+        run: |
+          echo "Filtered Active Objects: ${{ steps.filter_active.outputs.active_objects }}"
