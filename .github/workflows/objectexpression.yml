@@ -1,0 +1,33 @@
+name: Object Filter Example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  object-filter-demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Define Objects
+        id: define_objects
+        run: |
+          # Defining a list of objects
+          objects='[{"name": "Object1", "status": "active"}, {"name": "Object2", "status": "inactive"}, {"name": "Object3", "status": "active"}]'
+          echo "Objects: $objects"
+          echo "::set-output name=objects::$objects"
+
+      - name: Filter Active Objects
+        id: filter_active
+        run: |
+          # Filtering active objects from the list
+          active_objects="${{ fromJson(steps.define_objects.outputs.objects) | select(item => item.status == 'active') }}"
+          echo "Active objects: $active_objects"
+
+      - name: Display Filtered Active Objects
+        run: |
+          # Displaying the filtered objects
+          echo "Filtered Active Objects: ${{ steps.filter_active.outputs.active_objects }}"
