@@ -1,0 +1,15 @@
+name: Called Workflow
+
+on:
+  workflow_call:  # Triggered by another workflow using 'workflow_call'
+
+jobs:
+  display_message:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Display Custom Message
+      run: echo "This workflow was triggered by another workflow!"
