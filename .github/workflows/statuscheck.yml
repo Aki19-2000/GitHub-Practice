@@ -13,36 +13,32 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Step 1 - Success Step
+        id: step1
         run: |
           echo "This step will always succeed."
-        
+      
       - name: Step 2 - Failure Step
+        id: step2
         run: |
           echo "This step will fail."
           exit 1  # Simulating failure
 
       - name: Step 3 - Success Check
         run: |
-          if [[ ${{ success() }} == true ]]; then
-            echo "Previous steps were successful."
-          else
-            echo "One or more steps failed."
-          fi
+          echo "Previous steps were successful."
+        if: success()  # This will run only if all previous steps succeeded
 
       - name: Step 4 - Failure Check
         run: |
-          if [[ ${{ failure() }} == true ]]; then
-            echo "At least one previous step has failed."
-          else
-            echo "No steps have failed."
-          fi
+          echo "At least one previous step has failed."
+        if: failure()  # This will run only if any previous step failed
 
       - name: Step 5 - Always Run Check
         run: |
           echo "This step runs regardless of previous step results."
-      
+        if: always()  # This will always run, regardless of success or failure
+
       - name: Step 6 - Always Check (Conditional on Status)
         run: |
-          if [[ ${{ always() }} == true ]]; then
-            echo "This step runs no matter what."
-          fi
+          echo "This step runs no matter what."
+        if: always()  # This will always run
