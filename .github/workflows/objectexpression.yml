@@ -1,4 +1,4 @@
-name: Object Filter with jq Example
+name: Object Filter with * Operator
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 jobs:
   object-filter-demo:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -15,22 +16,16 @@ jobs:
       - name: Define Objects
         id: define_objects
         run: |
-          objects='[{"name": "Object1", "status": "active"}, {"name": "Object2", "status": "inactive"}, {"name": "Object3", "status": "active"}]'
-          echo "Objects: $objects"
+          objects='[
+            {"name": "Object1", "status": "active"},
+            {"name": "Object2", "status": "inactive"},
+            {"name": "Object3", "status": "active"}
+          ]'
           echo "::set-output name=objects::$objects"
 
-      - name: Debug Output
+      - name: Filter Objects with * Operator
         run: |
-          echo "Output from previous step: ${{ steps.define_objects.outputs.objects }}"
-
-      - name: Filter Active Objects using jq
-        id: filter_active
-        run: |
-          echo "Filtering objects where status == active"
-          active_objects=$(echo "${{ steps.define_objects.outputs.objects }}" | jq '[.[] | select(.status == "active")]')
-          echo "Active objects: $active_objects"
-          echo "::set-output name=active_objects::$active_objects"
-
-      - name: Display Filtered Active Objects
-        run: |
-          echo "Filtered Active Objects: ${{ steps.filter_active.outputs.active_objects }}"
+          # Using the * operator to loop through the objects array and filter by status
+          active_objects="${{ fromJson(steps.define_objects.outputs.objects) }}"
+          active_items="${{ active_objects[*] }}"
+          echo "Filtered Objects: $active_items"
