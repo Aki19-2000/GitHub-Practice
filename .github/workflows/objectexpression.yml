@@ -1,4 +1,4 @@
-name: Object Filter Example
+name: Object Filter with jq Example
 
 on:
   push:
@@ -20,14 +20,14 @@ jobs:
           echo "Objects: $objects"
           echo "::set-output name=objects::$objects"
 
-      - name: Filter Active Objects
+      - name: Filter Active Objects using jq
         id: filter_active
         run: |
-          # Filtering active objects from the list
-          active_objects="${{ fromJson(steps.define_objects.outputs.objects) | select(item => item.status == 'active') }}"
+          # Using jq to filter active objects from the array
+          active_objects=$(echo "${{ steps.define_objects.outputs.objects }}" | jq '[.[] | select(.status == "active")]')
           echo "Active objects: $active_objects"
+          echo "::set-output name=active_objects::$active_objects"
 
       - name: Display Filtered Active Objects
         run: |
-          # Displaying the filtered objects
           echo "Filtered Active Objects: ${{ steps.filter_active.outputs.active_objects }}"
