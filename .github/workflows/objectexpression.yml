@@ -17,11 +17,12 @@ jobs:
         run: |
           objects='[{"name": "Object1", "status": "active"}, {"name": "Object2", "status": "inactive"}, {"name": "Object3", "status": "active"}]'
           echo "Objects: $objects"
-          echo "::set-output name=objects::$(echo $objects | jq -c .)"
+          echo "::set-output name=objects::$objects"
 
       - name: Filter Active Objects using jq
         id: filter_active
         run: |
+          echo "Filtering objects where status == active"
           active_objects=$(echo "${{ steps.define_objects.outputs.objects }}" | jq '[.[] | select(.status == "active")]')
           echo "Active objects: $active_objects"
           echo "::set-output name=active_objects::$active_objects"
