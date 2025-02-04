@@ -1,17 +1,17 @@
-name: First Workflow
+# first-workflow.yml
+name: First Workflow (Reusable)
 
 on:
-  workflow_call:  # This allows the workflow to be called by another workflow
+  workflow_call:  # Triggered when called by another workflow
     inputs:
       message:
-        description: 'The message to be displayed'
+        description: 'The message to display'
         required: true
         type: string
 
 jobs:
-  job1:
+  display_message:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Display message
-      run: echo "${{ inputs.message }}"  # Display the message passed as input
+      - name: Display the message
+        run: echo "${{ inputs.message }}"  # Display the input message
