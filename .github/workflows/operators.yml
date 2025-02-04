@@ -1,0 +1,84 @@
+name: GitHub Context Operators Example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  operators-demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
+      - name: Logical Grouping Example
+        run: |
+          if [[ ${{ (github.actor == 'Aki19-2000') && (github.event_name == 'push') }} == true ]]; then
+            echo "Logical grouping: Actor is Aki19-2000 and event is push"
+          else
+            echo "Logical grouping: Condition is false"
+          fi
+      - name: Indexing Example
+        run: |
+          branch_name="${{ github.ref }}"
+          echo "Branch name (from ref): ${{ branch_name }}"
+          branch="${{ github.ref }}" 
+          branch="${branch/refs\/heads\//}"  # Remove the prefix
+          echo "Cleaned branch name: $branch"
+      - name: Property Dereference Example
+        run: |
+          echo "Repository name: ${{ github.repository }}"
+          echo "Event name: ${{ github.event_name }}"
+      - name: NOT Operator Example
+        run: |
+          if [[ ! ${{ github.actor == 'nonexistent-user' }} ]]; then
+            echo "The NOT operator negated the condition (actor is not 'nonexistent-user')"
+          else
+            echo "The NOT operator failed to negate (actor is 'nonexistent-user')"
+          fi
+      - name: Comparison Operators Example
+        run: |
+          a=10
+          b=20
+
+          # Less than (<)
+          if [[ $a -lt $b ]]; then
+            echo "$a is less than $b"
+          fi
+          if [[ $a -le $b ]]; then
+            echo "$a is less than or equal to $b"
+          fi
+          if [[ $a -gt $b ]]; then
+            echo "$a is greater than $b"
+          fi
+          if [[ $a -ge $b ]]; then
+            echo "$a is greater than or equal to $b"
+          fi
+          if [[ $a -eq 10 ]]; then
+            echo "$a is equal to 10"
+          fi
+          if [[ $a -ne $b ]]; then
+            echo "$a is not equal to $b"
+          fi
+      - name: Logical AND (&&) and OR (||) Operators Example
+        run: |
+          if [[ $a -eq 10 && $b -gt 15 ]]; then
+            echo "Logical AND: $a is 10 AND $b is greater than 15"
+          fi
+          if [[ $a -eq 10 || $b -lt 25 ]]; then
+            echo "Logical OR: $a is 10 OR $b is less than 25"
+          fi
+      - name: Conditional Based on GitHub Context
+        run: |
+          # Check if the current GitHub repository is a specific repository
+          if [[ ${{ github.repository }} == 'Aki19-2000/GitHub-Practice' ]]; then
+            echo "This is the 'Aki19-2000/GitHub-Practice' repository."
+          else
+            echo "This is NOT the 'octocat/hello-world' repository."
+          fi
+          if [[ ${{ github.event_name }} == 'push' ]]; then
+            echo "This workflow was triggered by a push event."
+          fi
+     
