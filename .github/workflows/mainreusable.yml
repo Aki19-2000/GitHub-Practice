@@ -9,6 +9,6 @@ jobs:
 
     steps:
     - name: Trigger the First Workflow
-      uses: github/workflows/first-workflow.yml  # Path to the first workflow
+      uses: github/workflows/Reusable.yml 
       with:
         message: "This is the message displayed by the first workflow!"  # Message to pass
