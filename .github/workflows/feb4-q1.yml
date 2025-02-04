@@ -1,13 +1,13 @@
-name: Q1 Deployment Workflow 
+name: Q1 Deployment Workflow
 
 on:
   push:
     branches:
-      - main 
+      - main  # Trigger the workflow only on push to the 'main' branch
 
 jobs:
   build:
-    runs-on: ubuntu-latest  
+    runs-on: ubuntu-latest  # Specify the runner environment
 
     steps:
       - name: Checkout code
@@ -16,20 +16,38 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  
+          node-version: '16'  # Specify the Node.js version (adjust as necessary)
 
-      - name: Install dependencies
+      - name: Check if package.json exists at root or subfolder
         run: |
-          # Check if package.json is at the root or in a subfolder
+          # Check if package.json is at the root directory
           if [ -f "package.json" ]; then
+            echo "Found package.json at root directory."
+            npm install
+          elif [ -f "frontend/package.json" ]; then
+            echo "Found package.json in the 'frontend' subfolder."
+            cd frontend
+            npm install
+          elif [ -f "backend/package.json" ]; then
+            echo "Found package.json in the 'backend' subfolder."
+            cd backend
             npm install
           else
-            echo "package.json not found at root directory. Please check the path."
+            echo "package.json not found at the expected locations (root, frontend, or backend)."
             exit 1
           fi
 
       - name: Run tests
-        run: npm test  # Replace with your actual test command (e.g., `npm test`, `pytest`, etc.)
+        run: |
+          if [ -f "package.json" ]; then
+            npm test  # Replace with your actual test command
+          elif [ -f "frontend/package.json" ]; then
+            cd frontend
+            npm test  # Replace with your actual test command
+          elif [ -f "backend/package.json" ]; then
+            cd backend
+            npm test  # Replace with your actual test command
+          fi
 
   deploy:
     needs: build  # This ensures deploy will only run if the build job is successful
@@ -41,7 +59,7 @@ jobs:
 
       - name: Deploy application
         run: |
-          echo "Deploying application..."  
+          echo "Deploying application..."  # Replace with your actual deploy commands
           # Example deploy script:
           # scp -r ./build user@server:/path/to/deploy
 
