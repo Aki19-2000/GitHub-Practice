@@ -12,31 +12,27 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-        
       - name: Convert GitHub Context to JSON
         run: |
           context_json="${{ toJson(github) }}"
           echo "GitHub context as JSON: $context_json"
       - name: Check if repository name contains 'GitHub'
         run: |
-          repo_name="${{ github.repository }}"
-          if [[ ${{ contains(repo_name, 'GitHub') }} == 'true' ]]; then
+          if [[ ${{ contains(github.repository, 'GitHub') }} == 'true' ]]; then
             echo "The repository name contains 'GitHub'"
           else
             echo "The repository name does not contain 'GitHub'"
           fi
       - name: Check if repository name starts with 'Aki19'
         run: |
-          repo_name="${{ github.repository }}"
-          if [[ ${{ startsWith(repo_name, 'Aki19') }} == 'true' ]]; then
+          if [[ ${{ startsWith(github.repository, 'Aki19') }} == 'true' ]]; then
             echo "The repository name starts with 'Aki19'"
           else
             echo "The repository name does not start with 'Aki19'"
           fi
       - name: Check if repository name ends with 'GitHub-Practice'
         run: |
-          repo_name="${{ github.repository }}"
-          if [[ ${{ endsWith(repo_name, 'GitHub-Practice') }} == 'true' ]]; then
+          if [[ ${{ endsWith(github.repository, 'GitHub-Practice') }} == 'true' ]]; then
             echo "The repository name ends with 'GitHub-Practice'"
           else
             echo "The repository name does not end with 'GitHub-Practice'"
