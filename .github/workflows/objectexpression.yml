@@ -19,6 +19,10 @@ jobs:
           echo "Objects: $objects"
           echo "::set-output name=objects::$objects"
 
+      - name: Debug Output
+        run: |
+          echo "Output from previous step: ${{ steps.define_objects.outputs.objects }}"
+
       - name: Filter Active Objects using jq
         id: filter_active
         run: |
