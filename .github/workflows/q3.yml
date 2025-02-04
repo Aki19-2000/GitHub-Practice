@@ -1,4 +1,4 @@
-name: q3 Deploy to Staging
+name: Deploy to Staging
 
 on:
   push:
@@ -22,22 +22,19 @@ jobs:
 
       - name: Run tests
         run: npm test
-        # Ensure your tests pass before proceeding
+        
 
   deploy:
     needs: test
     runs-on: ubuntu-latest
+    environment:
+      name: stag  
+     
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Wait for manual approval
-        uses: peter-evans/workflow-dispatch@v1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          approval-message: "Please approve deployment to staging."
-
       - name: Deploy to Staging
         run: |
           echo "Deploying to Staging environment..."
-          # Add your deployment commands here (e.g., AWS, Heroku, etc.)
+          
