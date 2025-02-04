@@ -48,7 +48,8 @@ jobs:
 
       - name: Join GitHub context values (actor, event name)
         run: |
-          echo "Joined GitHub context: ${{ join(', ', ['Actor: ' + github.actor, 'Event: ' + github.event_name, 'Repository: ' + github.repository]) }}"
+          joined_context="${{ join(', ', format('Actor: {}', github.actor), format('Event: {}', github.event_name), format('Repository: {}', github.repository)) }}"
+          echo "Joined GitHub context: $joined_context"
 
       - name: Parse JSON string and access GitHub context values
         run: |
@@ -59,3 +60,5 @@ jobs:
         run: |
           file_hash="${{ hashFiles('README.md') }}"
           echo "Hash of README.md: $file_hash"
+
+      
