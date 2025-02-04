@@ -3,7 +3,7 @@ name: Deploy to Staging
 on:
   push:
     branches:
-      - Develop
+      - Develop  # Ensure this matches the exact branch name
 
 jobs:
   test:
@@ -22,14 +22,13 @@ jobs:
 
       - name: Run tests
         run: npm test
-        
 
   deploy:
     needs: test
     runs-on: ubuntu-latest
     environment:
-      name: stag  
-     
+      name: stag  # Ensure 'stag' is correctly set up in your GitHub settings
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -37,4 +36,4 @@ jobs:
       - name: Deploy to Staging
         run: |
           echo "Deploying to Staging environment..."
-          
+          # Add your deployment commands here
