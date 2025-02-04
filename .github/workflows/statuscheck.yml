@@ -1,0 +1,48 @@
+name: Status Check Example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  status-check-demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Step 1 - Success Step
+        run: |
+          echo "This step will always succeed."
+        
+      - name: Step 2 - Failure Step
+        run: |
+          echo "This step will fail."
+          exit 1  # Simulating failure
+
+      - name: Step 3 - Success Check
+        run: |
+          if [[ ${{ success() }} == true ]]; then
+            echo "Previous steps were successful."
+          else
+            echo "One or more steps failed."
+          fi
+
+      - name: Step 4 - Failure Check
+        run: |
+          if [[ ${{ failure() }} == true ]]; then
+            echo "At least one previous step has failed."
+          else
+            echo "No steps have failed."
+          fi
+
+      - name: Step 5 - Always Run Check
+        run: |
+          echo "This step runs regardless of previous step results."
+      
+      - name: Step 6 - Always Check (Conditional on Status)
+        run: |
+          if [[ ${{ always() }} == true ]]; then
+            echo "This step runs no matter what."
+          fi
