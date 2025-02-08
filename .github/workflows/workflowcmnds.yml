@@ -19,7 +19,7 @@ jobs:
     
     - name: Missing semicolon notice (notice)
       run: |
-        echo "::notice file=file1.txt,line=3,col=4,endColumn=7::Missing semicolon"
+        echo "::notice file=file1.txt,line=1,col=5,endColumn=7::Missing semicolon"
     
     - name: Missing semicolon warning (warning)
       run: |
@@ -32,7 +32,7 @@ jobs:
     - name: Grouping commands with titles
       run: |
         echo "::group::My title"
-        echo "Inside group we can add any number of lines here"
+        echo "Inside group"
         echo "::endgroup::"
 
     - name: Add mask to sensitive data
@@ -41,7 +41,7 @@ jobs:
 
     - name: Stop commands and warning behavior
       run: |
-        echo "::stop-commands::$stopMarker"
+        echo "::stop-commands::pause-logging"
         echo '::warning:: This will NOT be rendered as a warning, because stop-commands has been invoked.'
-        echo "::$stopMarker::"
+        echo "pause-logging::"
         echo '::warning:: This is a warning again, because stop-commands has been turned off.'
