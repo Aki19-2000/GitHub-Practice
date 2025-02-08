@@ -1,0 +1,47 @@
+name: Demo Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set Octocat variable (debug)
+      run: |
+        echo "::debug::Set the Octocat variable"
+    
+    - name: Missing semicolon notice (notice)
+      run: |
+        echo "::notice file=file1.txt,line=3,col=4,endColumn=7::Missing semicolon"
+    
+    - name: Missing semicolon warning (warning)
+      run: |
+        echo "::warning file=file1.txt,line=1,col=5,endColumn=7,title=YOUR-TITLE::Missing semicolon"
+    
+    - name: Missing semicolon error (error)
+      run: |
+        echo "::error file=file1.txt,line=1,col=5,endColumn=7,title=YOUR-TITLE::Missing semicolon"
+
+    - name: Grouping commands with titles
+      run: |
+        echo "::group::My title"
+        echo "Inside group we can add any number of lines here"
+        echo "::endgroup::"
+
+    - name: Add mask to sensitive data
+      run: |
+        echo "::add-mask::Mona The Octocat"
+
+    - name: Stop commands and warning behavior
+      run: |
+        echo "::stop-commands::$stopMarker"
+        echo '::warning:: This will NOT be rendered as a warning, because stop-commands has been invoked.'
+        echo "::$stopMarker::"
+        echo '::warning:: This is a warning again, because stop-commands has been turned off.'
