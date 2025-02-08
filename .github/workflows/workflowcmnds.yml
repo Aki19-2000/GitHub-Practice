@@ -37,6 +37,6 @@ jobs:
 
     - name: Add mask to sensitive data
       run: |
-        echo "::add-mask::Mona The Octocat"
-        echo "My secret is Mona The Octocat."
+        echo "::add-mask::My name is Aki"
+        echo "My secret is-My name is Aki ."
 
