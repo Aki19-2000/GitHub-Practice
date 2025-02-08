@@ -1,15 +1,7 @@
-name: Example Workflow
-author: John Doe
-description: |
-  This is a sample workflow to demonstrate metadata syntax.
-  It shows how to specify inputs, outputs, and branding details.
+name: metadata Workflow
 
-# Trigger: This workflow will run when there's a push to the 'main' branch
 on:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
   workflow_dispatch:
@@ -25,39 +17,28 @@ on:
 
 jobs:
   example_job:
-    runs-on: ubuntu-latest  # Defines the OS the job will run on
+    runs-on: ubuntu-latest  
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2  # Checks out the repository code
+        uses: actions/checkout@v2  
 
       - name: Run Custom Script
         id: run_script
         run: |
-          echo "Running the workflow with input_1: ${{ inputs.input_1 }}"
-          echo "Running the workflow with input_2: ${{ inputs.input_2 }}"
-          # Example command: running a bash script or command
+          echo "Running the workflow with input_1: ${{ github.event.inputs.input_1 }}"
+          echo "Running the workflow with input_2: ${{ github.event.inputs.input_2 }}"
           echo "Output generated"
         outputs:
           output_1: "Success"  # Example output
 
-      - name: Set Output
+      - name: Set Timestamp Output
         id: set_output
-        run: echo "::set-output name=output_1::$(date +'%Y-%m-%d %H:%M:%S')"
+        run: echo "::set-output name=output_2::$(date +'%Y-%m-%d %H:%M:%S')"
         outputs:
-          output_2: "Timestamp generated"
+          output_2: ${{ steps.set_output.outputs.output_2 }}
 
-    # You can reference the outputs of the steps and make use of them later
     outputs:
-      output_1: ${{ steps.set_output.outputs.output_1 }}
-      output_2: ${{ steps.run_script.outputs.output_2 }}
-
-branding:
-  logo: "https://example.com/logo.png"      # Link to your logo
-  color: "#00AEEF"                          # Your branding color
-  banner: "https://example.com/banner.png"   # Link to your banner image
-  contact:
-    name: "Support Team"
-    email: "support@example.com"
-    url: "https://example.com/support"
-
+      # Reference the outputs defined in individual steps
+      output_1: ${{ steps.run_script.outputs.output_1 }}
+      output_2: ${{ steps.set_output.outputs.output_2 }}
