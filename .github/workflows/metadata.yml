@@ -1,4 +1,4 @@
-name: metadata Workflow
+name: Example Workflow
 
 on:
   push:
@@ -38,7 +38,4 @@ jobs:
         outputs:
           output_2: ${{ steps.set_output.outputs.output_2 }}
 
-    outputs:
-      # Reference the outputs defined in individual steps
-      output_1: ${{ steps.run_script.outputs.output_1 }}
-      output_2: ${{ steps.set_output.outputs.output_2 }}
+    # Outputs from the steps are directly referenced within the job or can be used in subsequent jobs
