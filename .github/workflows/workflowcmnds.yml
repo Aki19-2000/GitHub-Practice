@@ -39,9 +39,3 @@ jobs:
       run: |
         echo "::add-mask::Mona The Octocat"
 
-    - name: Stop commands and warning behavior
-      run: |
-        echo "::stop-commands::pause-logging"
-        echo '::warning:: This will NOT be rendered as a warning, because stop-commands has been invoked.'
-        echo "pause-logging::"
-        echo '::warning:: This is a warning again, because stop-commands has been turned off.'
