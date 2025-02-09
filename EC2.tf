@@ -1,8 +1,0 @@
-resource "aws_instance" "terraform1" {
-  ami           = "ami-04b4f1a9cf54c11d0"  
-  instance_type = "t2.micro"               
-
-  tags = {
-    Name = "GitHub Actions EC2 Instance"
-  }
-}
