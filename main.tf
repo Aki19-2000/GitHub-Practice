@@ -1,5 +1,5 @@
 provider "aws" {
-  region  = ${{ secrets.AWS_REGION }}
+  region  = "us-east-1"
 }
 
 resource "aws_vpc" "my_vpc" {
