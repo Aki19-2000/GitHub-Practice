@@ -2,7 +2,7 @@ name: Terraform Apply
 
 on:
   workflow_dispatch:
-  
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
@@ -20,17 +20,17 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v2
       with:
         role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-        region: ${{ secrets.AWS_REGION }}
+        aws-region: ${{ secrets.AWS_REGION }}
         role-session-name: github-actions-session
 
     - name: Install Terraform dependencies
       run: |
-        terraform init -backend-config="path=main.tf"  
+        terraform init
 
-    - name: Run Terraform plan for main.tf
+    - name: Run Terraform plan
       run: |
-        terraform plan -out=tfplan main.tf  
+        terraform plan -out=tfplan
 
-    - name: Apply Terraform changes for main.tf
+    - name: Apply Terraform changes
       run: |
-        terraform apply -auto-approve tfplan  
+        terraform apply -auto-approve tfplan
