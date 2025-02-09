@@ -1,5 +1,5 @@
 provider "aws" {
-  region  = var.aws_region
+  region  = ${{ secrets.AWS_REGION }}
 }
 
 resource "aws_vpc" "my_vpc" {
