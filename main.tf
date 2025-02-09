@@ -47,7 +47,7 @@ resource "aws_security_group" "my_security_group" {
   }
 }
 
-resource "aws_instance" "my_instance" {
+resource "aws_instance" "my_instance1" {
   ami           = "ami-0c55b159cbfafe1f0"  
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.my_subnet.id
