@@ -20,7 +20,7 @@ resource "aws_security_group" "my_security_group" {
 }
 
 resource "aws_instance" "my_instance1" {
-  ami           = "ami-0c55b159cbfafe1f0"  # Replace with your AMI ID
+  ami           = "ami-085ad6ae776d8f09c"  # Replace with your AMI ID
   instance_type = "t2.micro"
 
   # Correct use of security_groups (plural)
