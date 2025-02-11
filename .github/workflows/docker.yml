@@ -22,10 +22,7 @@ jobs:
       - name: Run Docker action
         id: run-my-docker-action
         run: |
-          docker run --rm my-docker-action
-        with:
-          input1: 'Hello'
-          input2: 'World2'
+          docker run --rm my-docker-action input1=Hello input2=World2
 
       - name: Display action output
         run: echo "The combined result is ${{ steps.run-my-docker-action.outputs.combinedResult }}"
