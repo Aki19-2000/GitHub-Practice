@@ -13,5 +13,5 @@ inputs:
     default: 'another default value'
 
 runs:
-  using: 'node12'   # GitHub Actions will automatically detect Node.js runtime
-  main: 'index.js'   # Entry point for the JavaScript action
+  using: 'node12'
+  main: 'index.js'
