@@ -1,20 +1,21 @@
 name: 'My Docker Action'
-author: 'Akshaya'
-description: 'This is a custom action running inside a Docker container.'
-
+description: 'A custom action that runs inside a Docker container.'
+author: 'Your Name'
 inputs:
   input1:
-    description: 'The first input value'
+    description: 'First input'
     required: true
-    default: 'default1'
+    default: 'Hello'
   input2:
-    description: 'The second input value'
-    required: false
-    default: 'default2'
-
+    description: 'Second input'
+    required: true
+    default: 'World'
+outputs:
+  result:
+    description: 'The combined result of the inputs'
 runs:
   using: 'docker'
-  image: 'Dockerfile'  # The Dockerfile will be used to build the image
+  image: 'Dockerfile'  # Uses the Dockerfile in the repository
   args:
     - input1=${{ inputs.input1 }}
     - input2=${{ inputs.input2 }}
