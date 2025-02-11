@@ -1,17 +1,14 @@
-# Use a base image that supports Node.js
+# Use a base image that supports Node.js (or any other required runtime)
 FROM node:16-slim
 
 # Set the working directory in the container
 WORKDIR /action
 
-# Copy package.json and package-lock.json (if it exists) first to install dependencies
-COPY package*.json /action/
+# Copy the local files into the container's /action directory
+COPY . /action
 
 # Install the action's dependencies
 RUN npm install
 
-# Now, copy the rest of the code (index.js and other files)
-COPY . /action
-
-# Define the entry point for the container (this will run when the container starts)
-ENTRYPOINT ["node", "/action/index.js"]
+# Define the entry point for the container to use the new index2.js file
+ENTRYPOINT ["node", "/action/index2.js"]
