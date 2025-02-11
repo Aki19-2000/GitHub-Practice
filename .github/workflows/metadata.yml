@@ -14,7 +14,10 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Run my custom action
-      uses: ./
+      uses: ./  
       with:
-        input1: 'Hello World'
-        input2: 'Optional value'
+        input1: 'Hello'
+        input2: 'World'
+
+    - name: Display action output
+      run: echo "The combined result is ${{ steps.run-my-custom-action.outputs.combinedResult }}"
