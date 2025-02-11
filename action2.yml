@@ -1,0 +1,20 @@
+name: 'My Docker Action'
+author: 'Akshaya'
+description: 'This is a custom action running inside a Docker container.'
+
+inputs:
+  input1:
+    description: 'The first input value'
+    required: true
+    default: 'default1'
+  input2:
+    description: 'The second input value'
+    required: false
+    default: 'default2'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'  # The Dockerfile will be used to build the image
+  args:
+    - input1=${{ inputs.input1 }}
+    - input2=${{ inputs.input2 }}
