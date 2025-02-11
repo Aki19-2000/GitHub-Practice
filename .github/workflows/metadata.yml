@@ -14,7 +14,8 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Run my custom action
-      uses: ./  
+      id: run-my-custom-action  # Ensure you set an ID for the step
+      uses: ./  # Refers to the local action in the same repository
       with:
         input1: 'Hello'
         input2: 'World'
