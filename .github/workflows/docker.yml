@@ -16,8 +16,13 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Build and run Docker action
-        uses: ./
+      - name: Build Docker image
+        run: docker build -t my-docker-action .
+
+      - name: Run Docker action
+        id: run-my-docker-action
+        run: |
+          docker run --rm my-docker-action
         with:
           input1: 'Hello'
           input2: 'World'
