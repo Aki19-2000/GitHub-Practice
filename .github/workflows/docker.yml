@@ -25,7 +25,7 @@ jobs:
           docker run --rm my-docker-action
         with:
           input1: 'Hello'
-          input2: 'World'
+          input2: 'World2'
 
       - name: Display action output
         run: echo "The combined result is ${{ steps.run-my-docker-action.outputs.combinedResult }}"
