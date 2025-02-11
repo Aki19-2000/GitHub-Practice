@@ -1,8 +1,8 @@
 const core = require('@actions/core');
 
 
-const input1 = process.argv[2]; // First argument passed to the container
-const input2 = process.argv[3]; // Second argument passed to the container
+const input1 = process.argv[2]; 
+const input2 = process.argv[3]; 
 
 console.log(`Command-line argument Input 1: ${input1}`);
 console.log(`Command-line argument Input 2: ${input2}`);
