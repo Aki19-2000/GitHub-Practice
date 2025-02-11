@@ -1,4 +1,3 @@
-# Use a base image that supports Node.js
 FROM node:16-slim
 
 # Set the working directory in the container
