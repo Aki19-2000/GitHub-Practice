@@ -1,4 +1,4 @@
-name: 'metadata Workflow'
+name: meta data for js
 
 on:
   push:
@@ -10,15 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Run my custom action
-      id: run-my-custom-action  # Ensure you set an ID for the step
-      uses: ./  # Refers to the local action in the same repository
-      with:
-        input1: 'Hello'
-        input2: 'World'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
 
-    - name: Display action output
-      run: echo "The combined result is ${{ steps.run-my-custom-action.outputs.combinedResult }}"
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run my custom action
+        uses: ./  # Uses the custom action in the current repo
+
+      - name: Display action output
+        run: echo "The combined result is ${{ steps.run-my-custom-action.outputs.combinedResult }}"
