@@ -14,12 +14,5 @@ inputs:
 
 runs:
   using: 'node12'
-  steps:
-    - name: Install dependencies
-      shell: bash 
-      run: |
-        npm install  
-    
-    - name: Run the action
-      shell: node  
-      run: node index.js
+  main: 'index.js'  
+  shell: 'bash'     
