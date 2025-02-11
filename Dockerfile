@@ -1,9 +1,10 @@
+# Use a base image that supports Node.js
 FROM node:16-slim
 
 # Set the working directory in the container
 WORKDIR /action
 
-# Copy package.json and package-lock.json (if exists) first
+# Copy package.json and package-lock.json (if it exists) first
 COPY package*.json /action/
 
 # Install the action's dependencies
