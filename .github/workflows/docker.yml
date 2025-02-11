@@ -19,10 +19,13 @@ jobs:
       - name: Build Docker image
         run: docker build -t my-docker-action .
 
-      - name: Run Docker action
+      - name: Check Docker build status
+        run: docker images
+
+      - name: Run Docker action with environment variables
         id: run-my-docker-action
         run: |
-          docker run --rm my-docker-action input1=Hello input2=World
+          docker run --rm -e INPUT1=Hello -e INPUT2=World2 my-docker-action
 
       - name: Display action output
         run: echo "The combined result is ${{ steps.run-my-docker-action.outputs.combinedResult }}"
