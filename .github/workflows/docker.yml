@@ -1,0 +1,26 @@
+name: Docker Action Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and run Docker action
+        uses: ./
+        with:
+          input1: 'Hello'
+          input2: 'World'
+
+      - name: Display action output
+        run: echo "The combined result is ${{ steps.run-my-docker-action.outputs.combinedResult }}"
