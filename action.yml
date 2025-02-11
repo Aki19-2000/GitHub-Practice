@@ -13,9 +13,5 @@ inputs:
     default: 'another default value'
 
 runs:
-  using: 'node12'
-  steps:
-    - name: Install dependencies
-      run: npm install  # This installs the required dependencies like @actions/core
-    - name: Run the action
-      run: node index.js  # This runs your action after dependencies are installed
+  using: 'node12'  # Node.js runtime
+  main: 'index.js'  # The entry point JavaScript file for the action
