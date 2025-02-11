@@ -1,34 +1,20 @@
-name: metadata Workflow
+name: 'metadata Workflow'
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
-    inputs:
-      input_1:
-        description: 'Enter the first input (required)'
-        required: true
-        default: 'default_value_1'
-      input_2:
-        description: 'Enter the second input (optional)'
-        required: false
-        default: 'default_value_2'
 
 jobs:
-  example_job:
-    runs-on: ubuntu-latest  
+  build:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2  
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Run Custom Script
-        id: run_script
-        run: |
-          echo "Running the workflow with input_1: ${{ github.event.inputs.input_1 }}"
-          echo "Running the workflow with input_2: ${{ github.event.inputs.input_2 }}"
-         
-        
-
-    
+    - name: Run my custom action
+      uses: ./
+      with:
+        input1: 'Hello World'
+        input2: 'Optional value'
