@@ -1,14 +1,9 @@
 {
-  "name": "your-project-name",
+  "name": "my-custom-action",
   "version": "1.0.0",
-  "description": "A short description of your project",
+  "description": "This is a sample action that demonstrates metadata syntax and inputs.",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Tests are passing!\""
-  },
-  "keywords": [],
-  "author": "Your Name",
-  "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "@actions/core": "^1.9.0"
+  }
 }
