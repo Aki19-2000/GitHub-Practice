@@ -24,9 +24,10 @@ jobs:
 
       - name: Run Docker action with environment variables
         id: run-my-docker-action
-        run: |
-          output=$(docker run --rm -e INPUT1=Hello -e INPUT2=World2 my-docker-action)
-          echo "combinedResult=$output" >> $GITHUB_ENV
+        uses: ./action2.yml  # Explicitly use action2.yml here
+        with:
+          input1: 'Hello'
+          input2: 'World2'
 
       - name: Display action output
         run: echo "The combined result is ${{ steps.run-my-docker-action.outputs.combinedResult }}"
