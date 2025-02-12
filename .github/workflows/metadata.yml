@@ -22,7 +22,6 @@ jobs:
         run: npm install
 
       - name: Run my custom action
-        uses: ./  # Uses the custom action in the current repo
+        uses: ./  
 
-      - name: Display action output
-        run: echo "The combined result is ${{ steps.run-my-custom-action.outputs.combinedResult }}"
+
