@@ -9,6 +9,7 @@ try {
   console.log(`Input 2: ${input2}`);
   
   const result = `Processed result: ${input1} + ${input2}`;
+  console.log(result)
   
 } catch (error) {
   
